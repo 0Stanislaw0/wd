@@ -1,0 +1,12 @@
+{% extends 'device/base.html' %}
+
+{% block content %}
+{% for message in messages %}
+  {{ message }}
+{% endfor %}
+    <h1>New device</h1>
+    <form method="POST" class="device-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

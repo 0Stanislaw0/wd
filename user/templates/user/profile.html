@@ -1,0 +1,44 @@
+{% extends 'device/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+{% if not backends.associated %}
+
+<h1>{{title}}</h1>
+<h2>Кабинет пользователя</h2>
+<div class="media text-muted pt-3">
+  <img class =" mr-2 rounded" style="height: 64px; width: 64px;" src="{{ user.profile.img.url }}">
+   <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+     <strong class="d-block text-gray-dark">{{ user.username}}</strong>
+     <b> Email: </b> {{ user.email }}
+   </p>
+ </div>
+ <h3 class="mt-4">Изменение данных</h3>
+ <form method="POST" enctype="multipart/form-data">
+     {% csrf_token %}
+     {{ img_profile|crispy }}
+   <button type="submit" name="btn btn-outline-warning">
+     Изменить
+   </button>
+ </form>
+
+{% else %}
+
+     {% for social in backends.associated %}
+
+        {% if social.provider == 'instagram' %}
+           <div class="col-md-6 text-center">
+             <img src="{{ social.extra_data.user.profile_picture }}" alt="" width="150" height="150" style="border-radius: 50%">
+           </div>
+           <div class="col-md-6 social-container my-2">
+             <p>Signed in via: {{ social.provider }} </p>
+             <p> Name:  {{ social.extra_data.user.full_name }} </p>
+             <p>Provider url: <a href="https://instagram.com/{{social.username }}">link</a></p>
+          {% endif %}
+
+     {%endfor%}
+{% endif %}
+
+{% endblock content %}

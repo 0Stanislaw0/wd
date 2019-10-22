@@ -1,0 +1,28 @@
+{% extends 'device/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+ <div class="form-section">
+   <h2>Авторизация на сайте</h2>
+
+    <div class="row">
+
+    <div class="col-md-8 mx-auto social-container my-2 order-md-1">
+      <form class="auth mb-2" method="POST">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <br>
+        <button type="submit" name="btn btn-outline-warning">Войти</button>
+      </form>
+            <br>
+        <button class="btn btn-danger mb-2">
+            <a href="{% url 'social:begin' 'instagram' %}">Войти через Instagram </a>
+        </button>
+ <a  href="{% url 'pass-reset' %}">Забыли пароль?</a>
+    </div>
+
+</div>
+
+  <hr>
+
+ </div>
+{% endblock content %}

@@ -1,0 +1,55 @@
+{% extends 'device/base.html' %}
+{% block title %}
+Devices
+{% endblock %}
+{% block content %}
+  <div class="form-section">
+      {% for i in device_filter %}
+        <div>
+          <a href="{% url 'device_detail' i.id %}" class ="list-group-item"><b>{{i.name}}</b> - <b>{{i.get_type_display}}</b></a>
+        </div>
+      {% empty %}
+        {% for i in device %}
+        <div>
+          <a href="{% url 'device_detail' i.id %}" class ="list-group-item"><b>{{i.name}}</b> - <b>{{i.get_type_display}}</b></a>
+        </div>
+      {% empty %}
+        <div>
+          List empty
+        </div>
+    {% endfor %}
+  {% endfor %}
+  </div>
+
+
+{% if is_paginated %}
+  {% if page_obj.has_previous %}
+    <a href="?page=1" class ="btn btn-outline-warning">Начало</a>
+    <a href="?page={{ page_obj.previous_page_number }}" class ="btn btn-outline-warning">Пред </a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if num == page_obj.number %}
+    <button class ="btn btn-warning">{{num}}</button>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+    <a href="?page={{num}}" class ="btn btn-outline-warning">{{ num }} </a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a href="?page={{page_obj.next_page_number }}" class ="btn btn-outline-warning">Cлед </a>
+    <a href="?page={{ page_obj.paginator.num_pages }}" class ="btn btn-outline-warning">Посл</a>
+  {% endif %}
+{% endif %}
+{% endblock content %}
+{% block aside %}
+<div class="col">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title">Сортировка</h5>
+					<a href="{% url 'show' %}?type=m" class="card-link">громкоговоритель</a>
+					<a href="{% url 'show' %}?type=s" class="card-link">сирена</a>
+				</div>
+			</div>
+		</div>
+{% endblock aside %}

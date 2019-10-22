@@ -1,0 +1,9 @@
+{% extends 'device/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+ <div class="form-section">
+   <h2>Вы вышли с аккаунта</h2>
+   <hr>
+   <a  href="{% url 'auth' %}">Войти cнова?</a>
+ </div>
+{% endblock content %}
