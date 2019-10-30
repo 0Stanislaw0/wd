@@ -1,3 +1,3 @@
 # wd test task for job.
 Warning devices.
-sort elements,registration, reset password, profile.
+sort elements,registration, reset password, profile,rest api.
